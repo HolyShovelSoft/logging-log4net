@@ -819,7 +819,7 @@ public class PatternLayout : LayoutSkeleton
     ["n"] = typeof(NewLinePatternConverter),
 
     // .NET Standard has no support for ASP.NET
-#if NET462_OR_GREATER
+#if NET462_OR_GREATER && !LOG4UNI
     ["aspnet-cache"] = typeof(AspNetCachePatternConverter),
     ["aspnet-context"] = typeof(AspNetContextPatternConverter),
     ["aspnet-request"] = typeof(AspNetRequestPatternConverter),

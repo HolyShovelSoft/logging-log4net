@@ -1,4 +1,4 @@
-#if NET462_OR_GREATER
+#if NET462_OR_GREATER && !LOG4UNI
 #region Apache License
 //
 // Licensed to the Apache Software Foundation (ASF) under one or more 

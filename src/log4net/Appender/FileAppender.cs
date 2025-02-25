@@ -565,6 +565,7 @@ public class FileAppender : TextWriterAppender
     }
   }
 
+#if !LOG4UNI
   /// <summary>
   /// Provides cross-process file locking.
   /// </summary>
@@ -733,6 +734,7 @@ public class FileAppender : TextWriterAppender
       }
     }
   }
+#endif
 
   /// <summary>
   /// Hold no lock on the output file

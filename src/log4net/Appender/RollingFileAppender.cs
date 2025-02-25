@@ -214,10 +214,12 @@ public partial class RollingFileAppender : FileAppender
   public RollingFileAppender()
   { }
 
+#if !LOG4UNI
   /// <summary>
   /// Cleans up all resources used by this appender.
   /// </summary>
   ~RollingFileAppender() => Interlocked.Exchange(ref _mutexForRolling, null)?.Dispose();
+#endif
 
   /// <summary>
   /// Gets or sets the strategy for determining the current date and time. The default
@@ -520,8 +522,10 @@ public partial class RollingFileAppender : FileAppender
     // reuse the file appenders locking model to lock the rolling
     try
     {
+#if !LOG4UNI
       // if rolling should be locked, acquire the lock
       _mutexForRolling?.WaitOne();
+#endif
       if (_rollDate)
       {
         DateTime n = DateTimeStrategy.Now;
@@ -541,8 +545,10 @@ public partial class RollingFileAppender : FileAppender
     }
     finally
     {
+#if !LOG4UNI
       // if rolling should be locked, release the lock
       _mutexForRolling?.ReleaseMutex();
+#endif
     }
   }
 
@@ -1005,14 +1011,14 @@ public partial class RollingFileAppender : FileAppender
       // Store fully qualified base file name
       _baseFileName = base.File;
     }
-
+#if !LOG4UNI
     // initialize the mutex that is used to lock rolling
     _mutexForRolling = new Mutex(false, _baseFileName
       .Replace("\\", "_")
       .Replace(":", "_")
       .Replace("/", "_") + "_rolling"
     );
-
+#endif
     if (_rollDate && File is not null && _scheduledFilename is null)
     {
       _scheduledFilename = CombinePath(File, _now.ToString(DatePattern, DateTimeFormatInfo.InvariantInfo));
@@ -1504,10 +1510,12 @@ public partial class RollingFileAppender : FileAppender
   /// </summary>
   private string? _baseFileName;
 
+#if !LOG4UNI
   /// <summary>
   /// A mutex that is used to lock rolling of files.
   /// </summary>
   private Mutex? _mutexForRolling;
+#endif
 
   /// <summary>
   /// The 1st of January 1970 in UTC

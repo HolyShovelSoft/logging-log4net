@@ -80,7 +80,11 @@ public static class LoggerManager
 
     // Set the default repository selector
     // Look for the RepositorySelector type specified in the AppSettings 'log4net.RepositorySelector'
+#if !LOG4UNI
     string? appRepositorySelectorTypeName = SystemInfo.GetAppSetting("log4net.RepositorySelector");
+#else
+    string? appRepositorySelectorTypeName = "log4net.Unity.WrapperRepositorySelector";
+#endif
     if (!string.IsNullOrEmpty(appRepositorySelectorTypeName))
     {
       // Resolve the config string into a Type
