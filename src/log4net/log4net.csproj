@@ -71,12 +71,14 @@ log4net is designed with two distinct goals in mind: speed and flexibility
     <AssemblyConfiguration>Debug</AssemblyConfiguration>
     <DefineConstants>TRACE;TRACE;LOG4UNI</DefineConstants>
     <GeneratePackageOnBuild>$(GeneratePackages)</GeneratePackageOnBuild>
+    <DebugType>full</DebugType>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)'=='Release' ">
     <AssemblyConfiguration>Retail</AssemblyConfiguration>
     <DefineConstants>TRACE;STRONG;TRACE;LOG4UNI</DefineConstants>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PathMap>$(MSBuildProjectDirectory)\=$(MSBuildProjectDirectory.Replace($(MSBuildThisFileDirectory),"D:\Git\apache\logging-log4net"))\</PathMap>
+    <DebugType>full</DebugType>
   </PropertyGroup>
   <PropertyGroup />
   <ItemGroup Condition="'$(TargetFramework)'=='net462' and !$(DefineConstants.Contains('LOG4UNI'))">    
